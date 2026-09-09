@@ -13,11 +13,40 @@ Raw call transcripts move through the classic **medallion architecture** (bronze
 
 A Lakeview dashboard (`New Dashboard ...json`) visualizes the derivative-layer results.
 
-## Dashboard
-
-The derivative-layer tables feed a Lakeview dashboard that visualizes call sentiment, appliance category, and call type breakdowns.
-
-![Sentiment and appliance breakdown](images/dashboard-sentiment-appliances.png)
-![Appliance and call type breakdown](images/dashboard-appliances-calltype.png)
-
 ## Catalog structure
+
+```
+dbxtutorial (catalog)
+├── bronze.bronze_table        # raw + hashed transcripts
+├── silver.silver_table        # extracted fields + classifications
+├── gold.gold_table             # + appliance category, partitioned by date
+└── derivative
+    ├── count_appliances
+    ├── count_sentiment
+    └── count_calltype
+```
+
+## Notebooks
+
+| File | Purpose |
+|---|---|
+| `bronze_layer.py` | Ingest raw CSV, add uuid + timestamp |
+| `silver_layer.py` | AI-powered field extraction + classification |
+| `gold_layer.py` | Product categorization, date partitioning |
+| `derivative_layer.py` | Aggregate counts for reporting |
+| `partition.py` | Utility notebook to inspect table partitioning |
+
+## Tech stack
+
+- Databricks (Serverless SQL Warehouse, Unity Catalog)
+- PySpark / Delta Lake
+- Databricks AI Functions (`ai_extract`, `ai_classify`)
+
+## Notes
+
+- `silver_layer.py` currently processes a `LIMIT 200` subset of bronze data — remove this if you want the full dataset to flow through to gold/derivative.
+- Tables are written in `overwrite` mode, so reruns replace the prior snapshot rather than appending.
+
+## Author
+
+Abhishek — [GitHub](https://github.com/Abhi-singhh)
