@@ -47,6 +47,13 @@ dbxtutorial (catalog)
 - `silver_layer.py` currently processes a `LIMIT 200` subset of bronze data — remove this if you want the full dataset to flow through to gold/derivative.
 - Tables are written in `overwrite` mode, so reruns replace the prior snapshot rather than appending.
 
+## Dashboard
+
+The derivative-layer tables feed a Lakeview dashboard that visualizes call sentiment, appliance category, and call type breakdowns.
+
+![Sentiment and appliance breakdown](images/dashboard-sentiment-appliances.png)
+![Appliance and call type breakdown](images/dashboard-appliances-calltype.png)
+
 ## Author
 
 Abhishek — [GitHub](https://github.com/Abhi-singhh)
