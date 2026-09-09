@@ -26,13 +26,6 @@ dbxtutorial (catalog)
     └── count_calltype
 ```
 
-## Dashboard
-
-The derivative-layer tables feed a Lakeview dashboard that visualizes call sentiment, appliance category, and call type breakdowns.
-
-![Sentiment and appliance breakdown](images/dashboard-sentiment-appliances.png)
-![Appliance and call type breakdown](images/dashboard-appliances-calltype.png)
-
 ## Notebooks
 
 | File | Purpose |
