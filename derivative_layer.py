@@ -60,6 +60,20 @@ count_calltype = df.groupBy("call_type").count()
     .partitionBy("call_type")
     .saveAsTable("dbxtutorial.derivative.count_calltype"))
 
+
+# COMMAND ----------
+
+from validation_checks import validate_derivative_totals
+
+gold_slice_count = df.count()
+report = validate_derivative_totals(
+    gold_slice_count=gold_slice_count,
+    count_appliances_df=count_appliances,
+    count_sentiment_df=count_sentiment,
+    count_calltype_df=count_calltype,
+)
+report.raise_if_failed()
+
 # COMMAND ----------
 
 # MAGIC %sql
