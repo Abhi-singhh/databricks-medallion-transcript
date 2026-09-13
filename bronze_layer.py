@@ -28,6 +28,13 @@ df_with_uuid.display()
 
 # COMMAND ----------
 
+from validation_checks import validate_bronze
+
+report = validate_bronze(df_with_uuid)
+report.raise_if_failed()
+
+# COMMAND ----------
+
 df_with_uuid.write \
     .format("delta") \
     .mode("overwrite") \
