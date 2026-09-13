@@ -82,6 +82,13 @@ df_final = df_final.withColumn(
 
 # COMMAND ----------
 
+from validation_checks import validate_silver
+
+report = validate_silver(df_final)
+report.raise_if_failed()
+
+# COMMAND ----------
+
 df_final.write \
     .format("delta") \
     .mode("overwrite") \
