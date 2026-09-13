@@ -52,6 +52,14 @@ df = df.withColumn(
 
 # COMMAND ----------
 
+from validation_checks import validate_gold
+
+silver_count = spark.sql("select count(*) as n from dbxtutorial.silver.silver_table").collect()[0]["n"]
+report = validate_gold(df, expected_row_count=silver_count)
+report.raise_if_failed()
+
+# COMMAND ----------
+
 df.write \
     .format("delta") \
     .mode("overwrite") \
